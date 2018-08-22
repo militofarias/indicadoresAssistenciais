@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "822655803567",
+    "firebase_url": "https://indicadores-assistenciais.firebaseio.com",
+    "project_id": "indicadores-assistenciais",
+    "storage_bucket": "indicadores-assistenciais.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822655803567:android:6c40a801e2567cd7",
+        "android_client_info": {
+          "package_name": "com.cicatriza.indicadores"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822655803567-tub59pca27bmcb9kospbf4haqd4jg89f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cicatriza.indicadores",
+            "certificate_hash": "089e2489afce532ef8cd71816b2e8b46cc41d139"
+          }
+        },
+        {
+          "client_id": "822655803567-t15mvv5ub5re1obg886u4iosvb2mrhnd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxNlHRON-DKX4ADaa4mHNrgQlVGKyNG-Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822655803567-t15mvv5ub5re1obg886u4iosvb2mrhnd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

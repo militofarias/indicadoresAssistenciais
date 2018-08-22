@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#e45b46</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="primary_material_light_1">#fa9c9c</color>
+    <color name="primary_material_light_2">#f3b4b4</color>
+    <color name="Cinza_medio">#dbdbdb</color>
+    <color name="Branco">#ffffff</color>
+    <color name="NavBarGrey">#949494</color>
+</resources>
