@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.cicatriza.indicadores.R;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.cicatriza.indicadores.model.Usuario;
@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUserMetadata;
 
 public class loginActivity extends AppCompatActivity {
 
@@ -80,17 +81,28 @@ public class loginActivity extends AppCompatActivity {
     public void validarLogin(Usuario usuario) {
         progressBar.setVisibility(View.VISIBLE);
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+
         autenticacao.signInWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
+
+//                    if() {
+//                        Toast.makeText(loginActivity.this,
+//                                "NOVO USUARIO!", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                        finish();
+//                    } else {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+//                    }
+
                 } else {
                     Toast.makeText(loginActivity.this,
                             "Erro ao fazer login!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
