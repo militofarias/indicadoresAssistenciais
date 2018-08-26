@@ -1,6 +1,7 @@
 package com.cicatriza.indicadores.activity;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,17 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.cicatriza.indicadores.R;
+import com.cicatriza.indicadores.fragment.PatientFragment;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth userAuth = FirebaseAuth.getInstance();
     private FirebaseAuth autenticacao;
+    private PatientFragment patientFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        patientFragment = new PatientFragment();
+        FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainFrameLayout, patientFragment);
+        transaction.commit();
+
     }
 
     @Override
