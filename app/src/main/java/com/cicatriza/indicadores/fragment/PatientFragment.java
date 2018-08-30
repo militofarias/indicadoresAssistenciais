@@ -1,19 +1,19 @@
 package com.cicatriza.indicadores.fragment;
 
-
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.cicatriza.indicadores.R;
-import com.cicatriza.indicadores.activity.MainActivity;
-import com.google.firebase.database.ChildEventListener;
+import com.cicatriza.indicadores.model.Paciente;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +30,13 @@ public class PatientFragment extends Fragment {
 
     private DatabaseReference nurseRef = FirebaseDatabase.getInstance().getReference("Enfermeiros");
 
+    private EditText idPaciente;
+    private Button btnAdmissao, btnAtendimento, btnAlta;
+    private Spinner spinEnf;
+    private TratamentosFragment tratamentosFragment;
+
+    private Paciente paciente;
+
     public PatientFragment() {
         // Required empty public constructor
     }
@@ -40,6 +47,12 @@ public class PatientFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.patient_id, container, false);
 
+//        idPaciente = view.findViewById(R.id.textNurseID);
+        btnAdmissao = view.findViewById(R.id.buttonAvaliacao);
+//        btnAtendimento = view.findViewById(R.id.buttonAtendimento);
+//        btnAlta = view.findViewById(R.id.buttonAlta);
+//        spinEnf = view.findViewById(R.id.spinnerEnfermeiros);
+
         //CarregarSpinner
         nurseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -47,7 +60,7 @@ public class PatientFragment extends Fragment {
                 final List<String> enfermeiros = new ArrayList<String>();
 
                 for (DataSnapshot enfermeiroSnapshot : dataSnapshot.getChildren()) {
-                    String enfermeiroName = enfermeiroSnapshot.child("nome").getValue(String.class);
+                    String enfermeiroName = enfermeiroSnapshot.getKey().toString();
                     enfermeiros.add(enfermeiroName);
                 }
 
@@ -64,6 +77,20 @@ public class PatientFragment extends Fragment {
             }
         });
         //Fim do carregarSpinner
+
+        //Click em Admissao
+        btnAdmissao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tratamentosFragment = new TratamentosFragment();
+//                paciente = new Paciente();
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         return view;
     }

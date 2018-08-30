@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.MainActivity"
+    tools:context=".fragment.TratamentosFragment"
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
@@ -14,67 +13,33 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="sans-serif"
-        android:text="ID do Paciente:"
+        android:text="Tipo de Procedimento:"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/patientIdField"
+    <Button
+        android:id="@+id/buttonCurativos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_caixa_texto2"
-        android:ems="10"
-        android:hint="ID"
-        android:includeFontPadding="false"
-        android:inputType="number"
-        android:padding="10dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_button"
+        android:elevation="4dp"
+        android:text="Programa de curativos"
         android:textColor="@color/Branco"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPatientID" />
-
-    <TextView
-        android:id="@+id/textNurseID"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif"
-        android:text="Enfermeiro:"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patientIdField" />
-
-    <Spinner
-        android:id="@+id/spinnerEnfermeiros"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:drawable/btn_dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNurseID" />
+        app:layout_constraintTop_toBottomOf="@+id/textPatientID" />
 
     <Button
         android:id="@+id/buttonAvaliacao"
@@ -82,52 +47,49 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/bg_button"
-        android:text="Admissão"
+        android:elevation="4dp"
+        android:text="Avaliação"
         android:textColor="@color/Branco"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerEnfermeiros" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonCurativos" />
 
     <Button
-        android:id="@+id/buttonAtendimento"
+        android:id="@+id/buttonOutros"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_button"
-        android:text="Em atendimento"
+        android:elevation="4dp"
+        android:text="Outros procedimentos"
         android:textColor="@color/Branco"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAvaliacao" />
 
     <Button
-        android:id="@+id/buttonAlta"
+        android:id="@+id/buttonEncaminhamento"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_button"
-        android:text="Alta"
+        android:elevation="4dp"
+        android:text="Encaminhamento"
         android:textColor="@color/Branco"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAtendimento"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonOutros" />
 
 </android.support.constraint.ConstraintLayout>
