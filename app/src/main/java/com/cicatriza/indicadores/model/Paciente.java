@@ -1,8 +1,11 @@
 package com.cicatriza.indicadores.model;
 
+import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseReference;
+
 public class Paciente {
 
-    private Integer id;
+    private String id;
     private Admissao admissao;
     private Alta alta;
     private TratCurativo curativo;
@@ -13,11 +16,17 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Integer getId() {
+    public void salvar(String paciente) {
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference admissaoRef = firebaseRef.child("pacientes");
+        admissaoRef.child(paciente).setValue(this);
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

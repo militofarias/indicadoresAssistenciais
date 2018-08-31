@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.cicatriza.indicadores.R;
+import com.cicatriza.indicadores.helper.DateUtil;
+import com.cicatriza.indicadores.model.Admissao;
 import com.cicatriza.indicadores.model.Paciente;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,14 +30,15 @@ import java.util.List;
  */
 public class PatientFragment extends Fragment {
 
-    private DatabaseReference nurseRef = FirebaseDatabase.getInstance().getReference("Enfermeiros");
+    private DatabaseReference nurseRef = FirebaseDatabase.getInstance().getReference("enfermeiros");
 
     private EditText idPaciente;
     private Button btnAdmissao, btnAtendimento, btnAlta;
     private Spinner spinEnf;
-    private TratamentosFragment tratamentosFragment;
+    private TratamentosFragment tratamentosFragment = new TratamentosFragment();
 
-    private Paciente paciente;
+    private Paciente paciente = new Paciente();
+    private Admissao admissao = new Admissao();
 
     public PatientFragment() {
         // Required empty public constructor
@@ -47,11 +50,11 @@ public class PatientFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.patient_id, container, false);
 
-//        idPaciente = view.findViewById(R.id.textNurseID);
-        btnAdmissao = view.findViewById(R.id.buttonAvaliacao);
-//        btnAtendimento = view.findViewById(R.id.buttonAtendimento);
-//        btnAlta = view.findViewById(R.id.buttonAlta);
-//        spinEnf = view.findViewById(R.id.spinnerEnfermeiros);
+        idPaciente = view.findViewById(R.id.patientIdField);
+        btnAdmissao = view.findViewById(R.id.buttonAdmissao);
+        btnAtendimento = view.findViewById(R.id.buttonAtendimento);
+        btnAlta = view.findViewById(R.id.buttonAlta);
+        spinEnf = view.findViewById(R.id.spinnerEnfermeiros);
 
         //CarregarSpinner
         nurseRef.addValueEventListener(new ValueEventListener() {
@@ -78,17 +81,71 @@ public class PatientFragment extends Fragment {
         });
         //Fim do carregarSpinner
 
+
         //Click em Admissao
         btnAdmissao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tratamentosFragment = new TratamentosFragment();
-//                paciente = new Paciente();
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                String idNumPaciente = idPaciente.getText().toString();
+
+                try {
+                    admissao.setPacienteId(idNumPaciente);
+                    admissao.setEnfermeiro(spinEnf.getSelectedItem().toString());
+                    admissao.setData(DateUtil.dataAtual());
+                    admissao.salvar();
+
+                    paciente.setId(idNumPaciente);
+                    paciente.setAdmissao(admissao);
+                    paciente.salvar(idNumPaciente);
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        //Click em Atendimento
+        btnAtendimento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                try {
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        //Click em Alta
+        btnAlta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
