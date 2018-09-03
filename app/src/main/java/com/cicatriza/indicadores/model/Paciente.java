@@ -2,6 +2,8 @@ package com.cicatriza.indicadores.model;
 
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.ValueEventListener;
 
 public class Paciente {
 

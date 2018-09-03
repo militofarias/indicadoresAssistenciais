@@ -8,4 +8,5 @@
     <color name="Cinza_medio">#dbdbdb</color>
     <color name="Branco">#ffffff</color>
     <color name="NavBarGrey">#949494</color>
+    <color name="background_material_dark">#555454</color>
 </resources>

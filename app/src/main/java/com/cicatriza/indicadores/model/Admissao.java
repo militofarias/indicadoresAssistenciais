@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class Admissao {
 
-    private Integer id;
+    private Integer idPaciente;
     private String data;
     private String enfermeiro;
     private String pacienteId;
@@ -15,18 +15,18 @@ public class Admissao {
     public Admissao() {
     }
 
-    public void salvar() {
+    public void salvar(String idPaciente) {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
-        DatabaseReference admissaoRef = firebaseRef.child("admissao");
+        DatabaseReference admissaoRef = firebaseRef.child("admissoes").child(idPaciente);
         admissaoRef.push().setValue(this);
     }
 
     public Integer getId() {
-        return id;
+        return idPaciente;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.idPaciente = id;
     }
 
     public String getData() {
