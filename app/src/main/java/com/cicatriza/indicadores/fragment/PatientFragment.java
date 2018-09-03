@@ -27,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +43,6 @@ public class PatientFragment extends Fragment {
     private Button btnAdmissao, btnAtendimento, btnAlta;
     private Spinner spinEnf;
     private TratamentosFragment tratamentosFragment = new TratamentosFragment();
-    private PerguntaAdmissaoFragment perguntaAdmissaoFragment = new PerguntaAdmissaoFragment();
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     private Paciente paciente = new Paciente();
