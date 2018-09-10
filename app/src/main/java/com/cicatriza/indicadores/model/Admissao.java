@@ -7,10 +7,10 @@ import java.util.Calendar;
 
 public class Admissao {
 
-    private Integer idPaciente;
+    private String idPaciente;
     private String data;
     private String enfermeiro;
-    private String pacienteId;
+    private String idAlta;
 
     public Admissao() {
     }
@@ -19,14 +19,6 @@ public class Admissao {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
         DatabaseReference admissaoRef = firebaseRef.child("admissoes").child(idPaciente);
         admissaoRef.push().setValue(this);
-    }
-
-    public Integer getId() {
-        return idPaciente;
-    }
-
-    public void setId(Integer id) {
-        this.idPaciente = id;
     }
 
     public String getData() {
@@ -45,11 +37,19 @@ public class Admissao {
         this.enfermeiro = enfermeiro;
     }
 
-    public String getPacienteId() {
-        return pacienteId;
+    public String getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setPacienteId(String pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setIdPaciente(String idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public String getIdAlta() {
+        return idAlta;
+    }
+
+    public void setIdAlta(String idAlta) {
+        this.idAlta = idAlta;
     }
 }
