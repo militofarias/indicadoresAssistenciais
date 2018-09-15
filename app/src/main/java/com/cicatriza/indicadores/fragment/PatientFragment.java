@@ -45,7 +45,6 @@ public class PatientFragment extends Fragment {
     private Button btnAdmissao, btnAtendimento, btnAlta;
     private Spinner spinEnf;
     private TratamentosFragment tratamentosFragment = new TratamentosFragment();
-    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     public PatientFragment() {
         // Required empty public constructor
@@ -93,15 +92,16 @@ public class PatientFragment extends Fragment {
         btnAdmissao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdmissaoController admissaoController = new AdmissaoController(getContext(), getActivity(), spinEnf.getSelectedItem().toString());
                 String idNumPaciente = idPaciente.getText().toString();
 
                 if(idNumPaciente.matches("")) {
                     Toast.makeText(getContext(), "Insira o ID do Paciente.", Toast.LENGTH_SHORT).show();
+
                 } else {
 
                     try {
-                        admissaoController.admissaoPacienteNaoExiste(idNumPaciente);
+                        AdmissaoController admissaoController = new AdmissaoController(getContext(), getActivity(), idNumPaciente, spinEnf.getSelectedItem().toString());
+                        admissaoController.admissaoPacienteNaoExiste();
 
                     } catch(Exception e) {
                         e.printStackTrace();
