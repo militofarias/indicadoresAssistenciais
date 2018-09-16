@@ -19,6 +19,7 @@ import android.widget.Spinner;
 
 import com.cicatriza.indicadores.R;
 import com.cicatriza.indicadores.controller.AdmissaoController;
+import com.cicatriza.indicadores.controller.AltaController;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.cicatriza.indicadores.helper.DateUtil;
 import com.cicatriza.indicadores.model.Admissao;
@@ -95,13 +96,15 @@ public class PatientFragment extends Fragment {
                 String idNumPaciente = idPaciente.getText().toString();
 
                 if(idNumPaciente.matches("")) {
-                    Toast.makeText(getContext(), "Insira o ID do Paciente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Insira o ID do Paciente.",
+                            Toast.LENGTH_SHORT).show();
 
                 } else {
 
                     try {
-                        AdmissaoController admissaoController = new AdmissaoController(getContext(), getActivity(), idNumPaciente, spinEnf.getSelectedItem().toString());
-                        admissaoController.admissaoPacienteNaoExiste();
+                        AdmissaoController admissaoController = new AdmissaoController(getContext(),
+                                getActivity(), idNumPaciente, spinEnf.getSelectedItem().toString());
+                        admissaoController.callAdmissao();
 
                     } catch(Exception e) {
                         e.printStackTrace();
@@ -132,13 +135,22 @@ public class PatientFragment extends Fragment {
         btnAlta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String idNumPaciente = idPaciente.getText().toString();
 
-                try {
+                if(idNumPaciente.matches("")) {
+                    Toast.makeText(getContext(), "Insira o ID do Paciente.",
+                            Toast.LENGTH_SHORT).show();
 
-                    vaiPraPaginaTratamentos();
+                } else {
 
-                } catch(Exception e) {
-                    e.printStackTrace();
+                    try {
+                        AltaController altaController = new AltaController(getContext(),
+                                getActivity(), idNumPaciente,  spinEnf.getSelectedItem().toString());
+                        altaController.callAlta();
+
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

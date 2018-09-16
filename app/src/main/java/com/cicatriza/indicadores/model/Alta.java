@@ -1,37 +1,57 @@
 package com.cicatriza.indicadores.model;
 
+import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.Date;
 
 public class Alta {
 
-    private Integer id;
-    private Date data;
-    private Usuario enfermeiro;
+    private String idPaciente;
+    private String data;
+    private String enfermeiro;
+    private String idAdmissao;
 
     public Alta() {
     }
 
-    public Integer getId() {
-        return id;
+    public String salvar(String idPaciente) {
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference altaRef = firebaseRef.child("altas").child(idPaciente);
+        String newRef = altaRef.push().getKey();
+        altaRef.child(newRef).setValue(this);
+        return newRef;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getIdPaciente() {
+        return idPaciente;
     }
 
-    public Date getData() {
+    public void setIdPaciente(String id) {
+        this.idPaciente = id;
+    }
+
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public Usuario getEnfermeiro() {
+    public String getEnfermeiro() {
         return enfermeiro;
     }
 
-    public void setEnfermeiro(Usuario enfermeiro) {
+    public void setEnfermeiro(String enfermeiro) {
         this.enfermeiro = enfermeiro;
+    }
+
+    public String getIdAdmissao() {
+        return idAdmissao;
+    }
+
+    public void setIdAdmissao(String idAdmissao) {
+        this.idAdmissao = idAdmissao;
     }
 }

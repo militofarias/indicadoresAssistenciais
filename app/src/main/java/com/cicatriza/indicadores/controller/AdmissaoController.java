@@ -35,9 +35,6 @@ public class AdmissaoController {
     private Paciente paciente = new Paciente();
     private Admissao admissao = new Admissao();
 
-    private DatePickerDialog.OnDateSetListener dateSetListener;
-    private TratamentosFragment tratamentosFragment = new TratamentosFragment();
-
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
     private DatabaseReference pacientesRef = firebaseRef.child("pacientes");
     private DatabaseReference admissoesRef = firebaseRef.child("admissoes");
@@ -52,7 +49,7 @@ public class AdmissaoController {
     }
 
 
-    public void admissaoPacienteNaoExiste() {
+    public void callAdmissao() {
 
         pacientesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -151,30 +148,6 @@ public class AdmissaoController {
         date.show(activity.getFragmentManager(), "Date Picker");
 
     }
-//    public void dialogPegarData() {
-//        Calendar cal = Calendar.getInstance();
-//        int year = cal.get(Calendar.YEAR);
-//        int month = cal.get(Calendar.MONTH);
-//        int day = cal.get(Calendar.DAY_OF_MONTH);
-//
-//        DatePickerDialog dialog = new DatePickerDialog(context,
-//                android.R.style.Theme_Holo_Light_Dialog, dateSetListener,
-//                year, month, day);
-//        dialog.setTitle("Selecione data de admissão");
-//        dialog.show();
-//
-//        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                month = month + 1;
-//                System.out.println("Resultado: " + dayOfMonth + "/" + month + "/" + year);
-////                admissao.setData(dayOfMonth + "/" + month + "/" + year);
-////                admissao.setEnfermeiro(idEnfermeiro);
-////                admissao.salvar(idPaciente);
-////                vaiPraPaginaTratamentos();
-//            }
-//        };
-//    }
 
     public void dialogPossuiAdmissao() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
@@ -202,6 +175,8 @@ public class AdmissaoController {
     }
 
     public void vaiPraPaginaTratamentos() {
+        TratamentosFragment tratamentosFragment = new TratamentosFragment();
+
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
         transaction.addToBackStack(null);

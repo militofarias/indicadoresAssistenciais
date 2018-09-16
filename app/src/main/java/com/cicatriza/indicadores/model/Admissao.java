@@ -3,7 +3,6 @@ package com.cicatriza.indicadores.model;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.Calendar;
 
 public class Admissao {
 
