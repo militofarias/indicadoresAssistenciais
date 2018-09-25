@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import com.cicatriza.indicadores.R;
 import com.cicatriza.indicadores.controller.AdmissaoController;
 import com.cicatriza.indicadores.controller.AltaController;
+import com.cicatriza.indicadores.controller.AtendimentoController;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.cicatriza.indicadores.helper.DateUtil;
 import com.cicatriza.indicadores.model.Admissao;
@@ -45,7 +46,6 @@ public class PatientFragment extends Fragment {
     private EditText idPaciente;
     private Button btnAdmissao, btnAtendimento, btnAlta;
     private Spinner spinEnf;
-    private TratamentosFragment tratamentosFragment = new TratamentosFragment();
 
     public PatientFragment() {
         // Required empty public constructor
@@ -118,14 +118,22 @@ public class PatientFragment extends Fragment {
         btnAtendimento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String idNumPaciente = idPaciente.getText().toString();
 
+                if(idNumPaciente.matches("")) {
+                    Toast.makeText(getContext(), "Insira o ID do Paciente.",
+                            Toast.LENGTH_SHORT).show();
 
-                try {
+                } else {
+                    try {
+                        AtendimentoController atendimentoController = new AtendimentoController(
+                                getContext(), getActivity(),
+                                idNumPaciente,  spinEnf.getSelectedItem().toString());
+                        atendimentoController.callAtendimento();
 
-                    vaiPraPaginaTratamentos();
-
-                } catch(Exception e) {
-                    e.printStackTrace();
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -156,13 +164,6 @@ public class PatientFragment extends Fragment {
         });
 
         return view;
-    }
-
-    public void vaiPraPaginaTratamentos() {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainFrameLayout, tratamentosFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
 }
