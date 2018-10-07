@@ -30,7 +30,7 @@ public class AdmissaoController {
 
     private Context context;
     private FragmentActivity activity;
-    private String idPaciente, idEnfermeiro;
+    private String idPaciente, idEnfermeiro, date;
 
     private Paciente paciente = new Paciente();
     private Admissao admissao = new Admissao();
@@ -41,10 +41,11 @@ public class AdmissaoController {
 
 
 
-    public AdmissaoController(Context context, FragmentActivity activity, String idPaciente, String idEnfermeiro) {
+    public AdmissaoController(Context context, FragmentActivity activity, String idPaciente, String date, String idEnfermeiro) {
         this.context = context;
         this.activity = activity;
         this.idPaciente = idPaciente;
+        this.date = date;
         this.idEnfermeiro = idEnfermeiro;
     }
 
@@ -56,7 +57,12 @@ public class AdmissaoController {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(idPaciente)) {
                     admissao.setEnfermeiro(idEnfermeiro);
-                    admissao.setData(DateUtil.dataAtual());
+                    if (date.matches("")) {
+                        date = DateUtil.dataAtual();
+                        admissao.setData(date);
+                    } else {
+                        admissao.setData(date);
+                    }
                     admissao.salvar(idPaciente);
 
                     paciente.setId(idPaciente);
@@ -105,7 +111,12 @@ public class AdmissaoController {
 
                     } else {
                         admissao.setEnfermeiro(idEnfermeiro);
-                        admissao.setData(DateUtil.dataAtual());
+                        if (date.matches("")) {
+                            date = DateUtil.dataAtual();
+                            admissao.setData(date);
+                        } else {
+                            admissao.setData(date);
+                        }
                         admissao.salvar(idPaciente);
                         vaiPraPaginaTratamentos();
                     }
@@ -120,32 +131,38 @@ public class AdmissaoController {
         });
     }
 
-    public void dialogPegarData() {
-        DatePickerFragment date = new DatePickerFragment();
+    public void dialogPegarData() { //Dialog Datepicker Comentado
+//        DatePickerFragment date = new DatePickerFragment();
+//
+//        Calendar calendar = Calendar.getInstance();
+//        Bundle args = new Bundle();
+//        args.putString("title", "Selecione data de admissão");
+//        args.putInt("year", calendar.get(Calendar.YEAR));
+//        args.putInt("month", calendar.get(Calendar.MONTH));
+//        args.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
+//        date.setArguments(args);
 
-        Calendar calendar = Calendar.getInstance();
-        Bundle args = new Bundle();
-        args.putString("title", "Selecione data de admissão");
-        args.putInt("year", calendar.get(Calendar.YEAR));
-        args.putInt("month", calendar.get(Calendar.MONTH));
-        args.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
-        date.setArguments(args);
-
-        DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int month,
-                                  int dayOfMonth) {
-                month = month + 1;
-                System.out.println("Resultado: " + dayOfMonth + "/" + month + "/" + year);
-                admissao.setData(dayOfMonth + "/" + month + "/" + year);
+//        DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+//
+//            public void onDateSet(DatePicker view, int year, int month,
+//                                  int dayOfMonth) {
+//                month = month + 1;
+//
+//                admissao.setData(dayOfMonth + "/" + month + "/" + year);
+                if (date.matches("")) {
+                    date = DateUtil.dataAtual();
+                    admissao.setData(date);
+                } else {
+                    admissao.setData(date);
+                }
                 admissao.setEnfermeiro(idEnfermeiro);
                 admissao.salvar(idPaciente);
                 vaiPraPaginaTratamentos();
-            }
-        };
+//            }
+//        };
 
-        date.setCallBack(ondate);
-        date.show(activity.getFragmentManager(), "Date Picker");
+//        date.setCallBack(ondate);
+//        date.show(activity.getFragmentManager(), "Date Picker");
 
     }
 
@@ -158,7 +175,12 @@ public class AdmissaoController {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 admissao.setEnfermeiro(idEnfermeiro);
-                admissao.setData(DateUtil.dataAtual());
+                if (date.matches("")) {
+                    date = DateUtil.dataAtual();
+                    admissao.setData(date);
+                } else {
+                    admissao.setData(date);
+                }
                 admissao.salvar(idPaciente);
                 vaiPraPaginaTratamentos();
             }
@@ -175,7 +197,8 @@ public class AdmissaoController {
     }
 
     public void vaiPraPaginaTratamentos() {
-        TratamentosFragment tratamentosFragment = new TratamentosFragment();
+        TratamentosFragment tratamentosFragment = TratamentosFragment.newInstance(this.idPaciente,
+                this.idEnfermeiro, this.date);
 
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainFrameLayout, tratamentosFragment);

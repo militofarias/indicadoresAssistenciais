@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.cicatriza.indicadores.R;
 import com.cicatriza.indicadores.fragment.TratamentosFragment;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.cicatriza.indicadores.helper.DateUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,17 +21,18 @@ public class AtendimentoController {
 
     private Context context;
     private FragmentActivity activity;
-    private String idPaciente, idEnfermeiro;
+    private String idPaciente, idEnfermeiro, date;
 
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
     private DatabaseReference pacientesRef = firebaseRef.child("pacientes");
     private DatabaseReference admissoesRef = firebaseRef.child("admissoes");
 
     public AtendimentoController(Context context, FragmentActivity activity, String idPaciente,
-                                 String idEnfermeiro) {
+                                 String date, String idEnfermeiro) {
         this.context = context;
         this.activity = activity;
         this.idPaciente = idPaciente;
+        this.date = date;
         this.idEnfermeiro = idEnfermeiro;
     }
 
@@ -78,12 +80,12 @@ public class AtendimentoController {
     }
 
     public void vaiPraPaginaTratamentos() {
-        Bundle bundle = new Bundle();
-        bundle.putString("idPaciente", idPaciente);
-        bundle.putString("enfermeiro", idEnfermeiro);
+        if (this.date.matches("")) {
+            this.date = DateUtil.dataAtual();
+        }
 
-        TratamentosFragment tratamentosFragment = new TratamentosFragment();
-        tratamentosFragment.setArguments(bundle);
+        TratamentosFragment tratamentosFragment = TratamentosFragment.newInstance(this.idPaciente,
+                this.idEnfermeiro, this.date);
 
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainFrameLayout, tratamentosFragment);

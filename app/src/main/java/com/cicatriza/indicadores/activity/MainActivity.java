@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth userAuth = FirebaseAuth.getInstance();
     private FirebaseAuth autenticacao;
     private PatientFragment patientFragment;
 

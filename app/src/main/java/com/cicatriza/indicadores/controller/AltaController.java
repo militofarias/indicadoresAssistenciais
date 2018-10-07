@@ -23,7 +23,7 @@ public class AltaController {
 
     private Context context;
     private FragmentActivity activity;
-    private String idPaciente, idEnfermeiro;
+    private String idPaciente, idEnfermeiro, date;
 
     private Admissao admissao = new Admissao();
     private Alta alta = new Alta();
@@ -34,11 +34,12 @@ public class AltaController {
 
 
 
-    public AltaController(Context context, FragmentActivity activity, String idPaciente, String idEnfermeiro) {
+    public AltaController(Context context, FragmentActivity activity, String idPaciente, String date, String idEnfermeiro) {
         this.context = context;
         this.activity = activity;
         this.idPaciente = idPaciente;
         this.idEnfermeiro = idEnfermeiro;
+        this.date = date;
     }
 
     public void callAlta() {
@@ -62,7 +63,12 @@ public class AltaController {
     }
 
     public void insereAlta() {
-        alta.setData(DateUtil.dataAtual());
+        if (date.matches("")) {
+            date = DateUtil.dataAtual();
+            alta.setData(date);
+        } else {
+            alta.setData(date);
+        }
         alta.setEnfermeiro(this.idEnfermeiro);
 
         Query lastQuery = admissoesRef.child(idPaciente).orderByKey().limitToLast(1);

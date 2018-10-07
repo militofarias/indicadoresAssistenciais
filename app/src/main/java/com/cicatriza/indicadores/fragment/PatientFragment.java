@@ -3,6 +3,7 @@ package com.cicatriza.indicadores.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,10 +19,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.cicatriza.indicadores.R;
+import com.cicatriza.indicadores.activity.MainActivity;
 import com.cicatriza.indicadores.controller.AdmissaoController;
 import com.cicatriza.indicadores.controller.AltaController;
 import com.cicatriza.indicadores.controller.AtendimentoController;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.cicatriza.indicadores.helper.DateInputMask;
 import com.cicatriza.indicadores.helper.DateUtil;
 import com.cicatriza.indicadores.model.Admissao;
 import com.cicatriza.indicadores.model.Paciente;
@@ -43,7 +46,7 @@ public class PatientFragment extends Fragment {
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
     private DatabaseReference nurseRef = firebaseRef.child("enfermeiros");
 
-    private EditText idPaciente;
+    private EditText idPaciente, date;
     private Button btnAdmissao, btnAtendimento, btnAlta;
     private Spinner spinEnf;
 
@@ -58,12 +61,14 @@ public class PatientFragment extends Fragment {
         final View view = inflater.inflate(R.layout.patient_id, container, false);
 
         idPaciente = view.findViewById(R.id.patientIdField);
+        date = view.findViewById(R.id.dateIdField);
+        new DateInputMask(date);
         btnAdmissao = view.findViewById(R.id.buttonAdmissao);
         btnAtendimento = view.findViewById(R.id.buttonAtendimento);
         btnAlta = view.findViewById(R.id.buttonAlta);
         spinEnf = view.findViewById(R.id.spinnerEnfermeiros);
 
-        //CarregarSpinner
+//CarregarSpinner
         nurseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -86,14 +91,14 @@ public class PatientFragment extends Fragment {
 
             }
         });
-        //Fim do carregarSpinner
 
 
-        //Click em Admissao
+//Click em Admissao
         btnAdmissao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String idNumPaciente = idPaciente.getText().toString();
+                String dateField = date.getText().toString();
 
                 if(idNumPaciente.matches("")) {
                     Toast.makeText(getContext(), "Insira o ID do Paciente.",
@@ -103,7 +108,7 @@ public class PatientFragment extends Fragment {
 
                     try {
                         AdmissaoController admissaoController = new AdmissaoController(getContext(),
-                                getActivity(), idNumPaciente, spinEnf.getSelectedItem().toString());
+                                getActivity(), idNumPaciente, dateField, spinEnf.getSelectedItem().toString());
                         admissaoController.callAdmissao();
 
                     } catch(Exception e) {
@@ -114,11 +119,12 @@ public class PatientFragment extends Fragment {
         });
 
 
-        //Click em Atendimento
+//Click em Atendimento
         btnAtendimento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String idNumPaciente = idPaciente.getText().toString();
+                String dateField = date.getText().toString();
 
                 if(idNumPaciente.matches("")) {
                     Toast.makeText(getContext(), "Insira o ID do Paciente.",
@@ -128,7 +134,7 @@ public class PatientFragment extends Fragment {
                     try {
                         AtendimentoController atendimentoController = new AtendimentoController(
                                 getContext(), getActivity(),
-                                idNumPaciente,  spinEnf.getSelectedItem().toString());
+                                idNumPaciente, dateField, spinEnf.getSelectedItem().toString());
                         atendimentoController.callAtendimento();
 
                     } catch(Exception e) {
@@ -139,11 +145,12 @@ public class PatientFragment extends Fragment {
         });
 
 
-        //Click em Alta
+//Click em Alta
         btnAlta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String idNumPaciente = idPaciente.getText().toString();
+                String dateField = date.getText().toString();
 
                 if(idNumPaciente.matches("")) {
                     Toast.makeText(getContext(), "Insira o ID do Paciente.",
@@ -153,7 +160,7 @@ public class PatientFragment extends Fragment {
 
                     try {
                         AltaController altaController = new AltaController(getContext(),
-                                getActivity(), idNumPaciente,  spinEnf.getSelectedItem().toString());
+                                getActivity(), idNumPaciente, dateField, spinEnf.getSelectedItem().toString());
                         altaController.callAlta();
 
                     } catch(Exception e) {
