@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.cicatriza.indicadores.R;
+import com.cicatriza.indicadores.controller.AtendimentoController;
+import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,7 @@ import com.cicatriza.indicadores.R;
 public class TratamentosFragment extends Fragment {
 
     String idPaciente, enfermeiro, date;
+    Button btnCurativos, btnAvaliacoes, btnEncaminhamentos, btnOutros;
 
     public static TratamentosFragment newInstance(String idPaciente, String enfermeiro, String date) {
 
@@ -49,6 +54,23 @@ public class TratamentosFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_tratamentos, container, false);
         System.out.println(idPaciente + " - " + enfermeiro + " - " + date);
+
+        btnAvaliacoes = view.findViewById(R.id.buttonAvaliacao);
+        btnCurativos = view.findViewById(R.id.buttonCurativos);
+        btnEncaminhamentos = view.findViewById(R.id.buttonEncaminhamento);
+        btnOutros = view.findViewById(R.id.buttonOutros);
+
+//Click em Curativos
+        btnCurativos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AtendimentoController atendimentoController = new AtendimentoController(
+                        getContext(), getActivity(), idPaciente, date, enfermeiro);
+                atendimentoController.callCurativos();
+            }
+        });
+
+
         return view;
     }
 

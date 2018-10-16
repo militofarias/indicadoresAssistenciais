@@ -1,17 +1,11 @@
 package com.cicatriza.indicadores.fragment;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,23 +13,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.cicatriza.indicadores.R;
-import com.cicatriza.indicadores.activity.MainActivity;
 import com.cicatriza.indicadores.controller.AdmissaoController;
 import com.cicatriza.indicadores.controller.AltaController;
 import com.cicatriza.indicadores.controller.AtendimentoController;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.cicatriza.indicadores.helper.DateInputMask;
-import com.cicatriza.indicadores.helper.DateUtil;
-import com.cicatriza.indicadores.model.Admissao;
-import com.cicatriza.indicadores.model.Paciente;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -63,7 +51,7 @@ public class PatientFragment extends Fragment {
         idPaciente = view.findViewById(R.id.patientIdField);
         date = view.findViewById(R.id.dateIdField);
         new DateInputMask(date);
-        btnAdmissao = view.findViewById(R.id.buttonAdmissao);
+        btnAdmissao = view.findViewById(R.id.buttonAvaliacao);
         btnAtendimento = view.findViewById(R.id.buttonAtendimento);
         btnAlta = view.findViewById(R.id.buttonAlta);
         spinEnf = view.findViewById(R.id.spinnerEnfermeiros);
