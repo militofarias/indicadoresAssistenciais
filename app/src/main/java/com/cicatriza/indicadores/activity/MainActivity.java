@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 deslogarUsuario();
                 startActivity(new Intent(getApplicationContext(), loginActivity.class));
                 break;
+            case R.id.menu_pesquisa :
+//                startActivity(new Intent(getApplicationContext(), searchActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -70,6 +70,35 @@ public class TratamentosFragment extends Fragment {
             }
         });
 
+//Click em Avaliação
+        btnAvaliacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AtendimentoController atendimentoController = new AtendimentoController(
+                        getContext(), getActivity(), idPaciente, date, enfermeiro);
+                atendimentoController.callAvaliacao();
+            }
+        });
+
+//Click em Outros Procedimentos
+        btnOutros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AtendimentoController atendimentoController = new AtendimentoController(
+                        getContext(), getActivity(), idPaciente, date, enfermeiro);
+                atendimentoController.callOutro();
+            }
+        });
+
+//Click em Encaminhamento
+        btnEncaminhamentos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AtendimentoController atendimentoController = new AtendimentoController(
+                        getContext(), getActivity(), idPaciente, date, enfermeiro);
+                atendimentoController.callEncaminhamento();
+            }
+        });
 
         return view;
     }

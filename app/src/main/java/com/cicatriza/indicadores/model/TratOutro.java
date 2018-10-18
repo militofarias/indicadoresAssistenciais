@@ -1,30 +1,40 @@
 package com.cicatriza.indicadores.model;
 
+import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.Date;
 
 public class TratOutro {
 
-    private Integer id;
-    private Date data;
+    private String idPaciente;
+    private String data;
     private String especificacao;
-    private Usuario enfermeiro;
+    private String enfermeiro;
 
     public TratOutro() {
     }
 
-    public Integer getId() {
-        return id;
+    public void salvar(String idPaciente) {
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference admissaoRef = firebaseRef.child("tratamentos").child("outros")
+                .child(idPaciente);
+        admissaoRef.push().setValue(this);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getIdPaciente() {
+        return idPaciente;
     }
 
-    public Date getData() {
+    public void setIdPaciente(String idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -36,11 +46,11 @@ public class TratOutro {
         this.especificacao = especificacao;
     }
 
-    public Usuario getEnfermeiro() {
+    public String getEnfermeiro() {
         return enfermeiro;
     }
 
-    public void setEnfermeiro(Usuario enfermeiro) {
+    public void setEnfermeiro(String enfermeiro) {
         this.enfermeiro = enfermeiro;
     }
 }
