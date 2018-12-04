@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_sair :
                 deslogarUsuario();
-                startActivity(new Intent(getApplicationContext(), loginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
             case R.id.menu_pesquisa :
 //                startActivity(new Intent(getApplicationContext(), searchActivity.class));

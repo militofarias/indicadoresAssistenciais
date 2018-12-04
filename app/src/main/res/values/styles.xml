@@ -11,5 +11,10 @@
         <item name="android:colorBackground">@color/background_material_dark</item>
     </style>
 
-
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/Branco</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:navigationBarColor">@color/Branco</item>
+    </style>
 </resources>

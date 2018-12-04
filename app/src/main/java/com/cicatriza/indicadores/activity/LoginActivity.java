@@ -18,11 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText campoEmail, campoSenha;
     private Button buttonEntrar;
@@ -56,11 +54,11 @@ public class loginActivity extends AppCompatActivity {
                         validarLogin(usuario);
 
                     } else {
-                        Toast.makeText(loginActivity.this,
+                        Toast.makeText(LoginActivity.this,
                                 "Preencha a senha!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(loginActivity.this,
+                    Toast.makeText(LoginActivity.this,
                             "Preencha o e-mail!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -111,7 +109,7 @@ public class loginActivity extends AppCompatActivity {
                     }
 
 
-                    Toast.makeText(loginActivity.this,
+                    Toast.makeText(LoginActivity.this,
                             excecao, Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
