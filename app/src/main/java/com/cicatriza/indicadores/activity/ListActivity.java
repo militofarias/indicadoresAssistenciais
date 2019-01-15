@@ -10,37 +10,36 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.cicatriza.indicadores.R;
-import com.cicatriza.indicadores.fragment.PatientFragment;
+import com.cicatriza.indicadores.fragment.ListFragment;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
-    private PatientFragment patientFragment;
+    private ListFragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_list);
 
         Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
-        toolbar.setTitle("Indicadores Assistenciais");
         setSupportActionBar(toolbar);
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        patientFragment = new PatientFragment();
-        FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainFrameLayout, patientFragment);
-        transaction.commit();
 
+        listFragment = new ListFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.ListFrameLayout, listFragment);
+        transaction.commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
+        menuInflater.inflate(R.menu.menu_view, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -52,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 deslogarUsuario();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
-            case R.id.menu_pesquisa :
-                startActivity(new Intent(getApplicationContext(), ListActivity.class));
+            case R.id.menu_cadastro :
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

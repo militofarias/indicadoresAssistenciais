@@ -22,6 +22,11 @@ public class TratamentosFragment extends Fragment {
     String idPaciente, enfermeiro, date;
     Button btnCurativos, btnAvaliacoes, btnEncaminhamentos, btnOutros;
 
+
+    public TratamentosFragment() {
+        // Required empty public constructor
+    }
+
     public static TratamentosFragment newInstance(String idPaciente, String enfermeiro, String date) {
 
         Bundle args = new Bundle();
@@ -42,11 +47,6 @@ public class TratamentosFragment extends Fragment {
         this.date = this.getArguments().getString("date");
 
     }
-
-    public TratamentosFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
