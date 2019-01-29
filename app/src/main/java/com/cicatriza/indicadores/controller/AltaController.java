@@ -19,13 +19,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AltaController {
 
     private Context context;
     private FragmentActivity activity;
     private String idPaciente, idEnfermeiro, date;
 
-    private Admissao admissao = new Admissao();
     private Alta alta = new Alta();
 
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
@@ -80,11 +82,18 @@ public class AltaController {
                         Toast.makeText(context, "Paciente " + idPaciente + " já recebeu alta.",
                                 Toast.LENGTH_LONG).show();
                     } else {
-                        alta.setIdAdmissao(child.getKey().toString());
+                        alta.setIdAdmissao(child.getKey());
                         String newAltaRef = alta.salvar(idPaciente);
-                        admissao.setIdAlta(newAltaRef);
-                        admissoesRef.child(idPaciente).child(child.getKey().toString()).
-                                child("idAlta").setValue(newAltaRef);
+
+                        Map<String, Object> altaUpdate = new HashMap<>();
+                        altaUpdate.put("idAlta", newAltaRef);
+                        admissoesRef.child(idPaciente).child(child.getKey()).updateChildren(altaUpdate);
+
+                        for (DataSnapshot grandSon : child.getChildren()) {
+                            altaUpdate.put(grandSon.getKey(), grandSon.getValue());
+                        }
+                        pacientesRef.child(idPaciente).child("admissao").child(child.getKey())
+                                .updateChildren(altaUpdate);;
 
                         Toast.makeText(context, "Paciente " + idPaciente + " recebeu alta.",
                                 Toast.LENGTH_LONG).show();

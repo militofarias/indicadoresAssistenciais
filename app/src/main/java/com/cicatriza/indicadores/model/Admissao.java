@@ -1,6 +1,10 @@
 package com.cicatriza.indicadores.model;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 
@@ -10,15 +14,21 @@ public class Admissao {
     private String data;
     private String enfermeiro;
     private String idAlta;
+    private Paciente paciente;
 
     public Admissao() {
     }
 
-    public void salvar(String idPaciente) {
+    public void salvar(final String idPaciente) {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
         DatabaseReference admissaoRef = firebaseRef.child("admissoes").child(idPaciente);
-        admissaoRef.push().setValue(this);
-        
+        String newRef = admissaoRef.push().getKey();
+        admissaoRef.child(newRef).setValue(this);
+
+        paciente = new Paciente();
+        paciente.setAdmissao(newRef , this);
+        paciente.salvar(idPaciente);
+
     }
 
     public String getData() {

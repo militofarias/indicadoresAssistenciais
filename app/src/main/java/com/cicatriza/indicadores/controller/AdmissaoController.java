@@ -65,8 +65,6 @@ public class AdmissaoController {
                     }
                     admissao.salvar(idPaciente);
 
-                    paciente.setId(idPaciente);
-                    paciente.salvar(idPaciente);
                     vaiPraPaginaTratamentos();
                 } else {
                     pacientePossuiAdmissao();

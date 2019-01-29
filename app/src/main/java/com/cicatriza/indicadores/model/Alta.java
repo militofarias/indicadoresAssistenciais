@@ -11,6 +11,7 @@ public class Alta {
     private String data;
     private String enfermeiro;
     private String idAdmissao;
+    private  Paciente paciente;
 
     public Alta() {
     }
@@ -20,6 +21,11 @@ public class Alta {
         DatabaseReference altaRef = firebaseRef.child("altas").child(idPaciente);
         String newRef = altaRef.push().getKey();
         altaRef.child(newRef).setValue(this);
+
+        paciente = new Paciente();
+        paciente.setAlta(newRef, this);
+        paciente.salvar(idPaciente);
+
         return newRef;
     }
 

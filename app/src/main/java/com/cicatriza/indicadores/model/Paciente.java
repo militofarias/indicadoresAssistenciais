@@ -7,13 +7,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Paciente implements Serializable {
 
     private String id;
-    private List<Admissao> admissao;
-    private List<Alta> alta;
+    private HashMap<String, Admissao> admissao = new HashMap<>();
+    private HashMap<String, Alta> alta = new HashMap<>();
     private List<TratCurativo> curativo;
     private List<TratAvaliacao> avaliacao;
     private List<TratEncaminhamento> encaminhamento;
@@ -25,6 +26,7 @@ public class Paciente implements Serializable {
     public void salvar(String paciente) {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
         DatabaseReference pacienteRef = firebaseRef.child("pacientes");
+        setId(paciente);
         pacienteRef.child(paciente).setValue(this);
     }
 
@@ -36,20 +38,20 @@ public class Paciente implements Serializable {
         this.id = id;
     }
 
-    public List<Admissao> getAdmissao() {
+    public HashMap<String, Admissao> getAdmissao() {
         return admissao;
     }
 
-    public void setAdmissao(List<Admissao> admissao) {
-        this.admissao = admissao;
+    public void setAdmissao(String key, Admissao admissao) {
+        this.admissao.put(key, admissao);
     }
 
-    public List<Alta> getAlta() {
+    public HashMap<String, Alta> getAlta() {
         return alta;
     }
 
-    public void setAlta(List<Alta> alta) {
-        this.alta = alta;
+    public void setAlta(String key, Alta alta) {
+        this.alta.put(key, alta);
     }
 
     public List<TratCurativo> getCurativo() {
