@@ -5,23 +5,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ValueEventListener;
 
-public class Paciente {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Paciente implements Serializable {
 
     private String id;
-    private Admissao admissao;
-    private Alta alta;
-    private TratCurativo curativo;
-    private TratAvaliacao avaliacao;
-    private TratEncaminhamento encaminhamento;
-    private TratOutro outro;
+    private List<Admissao> admissao;
+    private List<Alta> alta;
+    private List<TratCurativo> curativo;
+    private List<TratAvaliacao> avaliacao;
+    private List<TratEncaminhamento> encaminhamento;
+    private List<TratOutro> outro;
 
     public Paciente() {
     }
 
     public void salvar(String paciente) {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
-        DatabaseReference admissaoRef = firebaseRef.child("pacientes");
-        admissaoRef.child(paciente).setValue(this);
+        DatabaseReference pacienteRef = firebaseRef.child("pacientes");
+        pacienteRef.child(paciente).setValue(this);
     }
 
     public String getId() {
@@ -32,51 +36,51 @@ public class Paciente {
         this.id = id;
     }
 
-    public Admissao getAdmissao() {
+    public List<Admissao> getAdmissao() {
         return admissao;
     }
 
-    public void setAdmissao(Admissao admissao) {
+    public void setAdmissao(List<Admissao> admissao) {
         this.admissao = admissao;
     }
 
-    public Alta getAlta() {
+    public List<Alta> getAlta() {
         return alta;
     }
 
-    public void setAlta(Alta alta) {
+    public void setAlta(List<Alta> alta) {
         this.alta = alta;
     }
 
-    public TratCurativo getCurativo() {
+    public List<TratCurativo> getCurativo() {
         return curativo;
     }
 
-    public void setCurativo(TratCurativo curativo) {
+    public void setCurativo(List<TratCurativo> curativo) {
         this.curativo = curativo;
     }
 
-    public TratAvaliacao getAvaliacao() {
+    public List<TratAvaliacao> getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(TratAvaliacao avaliacao) {
+    public void setAvaliacao(List<TratAvaliacao> avaliacao) {
         this.avaliacao = avaliacao;
     }
 
-    public TratEncaminhamento getEncaminhamento() {
+    public List<TratEncaminhamento> getEncaminhamento() {
         return encaminhamento;
     }
 
-    public void setEncaminhamento(TratEncaminhamento encaminhamento) {
+    public void setEncaminhamento(List<TratEncaminhamento> encaminhamento) {
         this.encaminhamento = encaminhamento;
     }
 
-    public TratOutro getOutro() {
+    public List<TratOutro> getOutro() {
         return outro;
     }
 
-    public void setOutro(TratOutro outro) {
+    public void setOutro(List<TratOutro> outro) {
         this.outro = outro;
     }
 }

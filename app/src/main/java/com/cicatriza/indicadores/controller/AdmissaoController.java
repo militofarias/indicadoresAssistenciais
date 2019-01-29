@@ -132,23 +132,7 @@ public class AdmissaoController {
     }
 
     public void dialogPegarData() { //Dialog Datepicker Comentado
-//        DatePickerFragment date = new DatePickerFragment();
-//
-//        Calendar calendar = Calendar.getInstance();
-//        Bundle args = new Bundle();
-//        args.putString("title", "Selecione data de admissão");
-//        args.putInt("year", calendar.get(Calendar.YEAR));
-//        args.putInt("month", calendar.get(Calendar.MONTH));
-//        args.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
-//        date.setArguments(args);
 
-//        DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
-//
-//            public void onDateSet(DatePicker view, int year, int month,
-//                                  int dayOfMonth) {
-//                month = month + 1;
-//
-//                admissao.setData(dayOfMonth + "/" + month + "/" + year);
                 if (date.matches("")) {
                     date = DateUtil.dataAtual();
                     admissao.setData(date);
@@ -158,11 +142,6 @@ public class AdmissaoController {
                 admissao.setEnfermeiro(idEnfermeiro);
                 admissao.salvar(idPaciente);
                 vaiPraPaginaTratamentos();
-//            }
-//        };
-
-//        date.setCallBack(ondate);
-//        date.show(activity.getFragmentManager(), "Date Picker");
 
     }
 

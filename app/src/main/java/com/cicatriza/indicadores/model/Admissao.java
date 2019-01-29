@@ -18,6 +18,7 @@ public class Admissao {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
         DatabaseReference admissaoRef = firebaseRef.child("admissoes").child(idPaciente);
         admissaoRef.push().setValue(this);
+        
     }
 
     public String getData() {
