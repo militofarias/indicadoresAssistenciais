@@ -2,15 +2,19 @@ package com.cicatriza.indicadores.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cicatriza.indicadores.R;
+import com.cicatriza.indicadores.model.Admissao;
+import com.cicatriza.indicadores.model.Alta;
 import com.cicatriza.indicadores.model.Paciente;
 
 import java.util.List;
+import java.util.Map;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
@@ -36,15 +40,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         Paciente paciente = listaPacientes.get(position);
 
         holder.idPaciente.setText("Paciente " + paciente.getId());
-        if (paciente.getAdmissao() == null) {
-            holder.dataAdmissao.setText("Admissão: " + "PROCESSANDO");
+        if (paciente.getAdmissao().isEmpty()) {
+            holder.dataAdmissao.setText(Html.fromHtml(
+                    "<b>Admissão:</b> " + "<i>-</i>", 1));
         } else {
-            holder.dataAdmissao.setText("Admissão: " + paciente.getAdmissao());
+            for (Map.Entry<String, Admissao> entry : paciente.getAdmissao().entrySet()) {
+                holder.dataAdmissao.setText(Html.fromHtml(
+                        "<b>Admissão:</b> " + "<i>" + entry.getValue().getData() + "</i>", 1));
+            }
         }
-        if (paciente.getAlta() == null) {
-            holder.dataAlta.setText("Alta: " + "em Tratamento");
+        if (paciente.getAlta().isEmpty()) {
+            holder.dataAlta.setText(Html.fromHtml(
+                    "<b>Alta:</b> " + "<i>em Tratamento</i>", 1));
         } else {
-            holder.dataAlta.setText("Alta: " + paciente.getAlta());
+            for (Map.Entry<String, Alta> entry : paciente.getAlta().entrySet()) {
+                holder.dataAlta.setText(Html.fromHtml(
+                        "<b>Alta:</b> " + "<i>" + entry.getValue().getData() + "</i>", 1));
+            }
         }
     }
 
