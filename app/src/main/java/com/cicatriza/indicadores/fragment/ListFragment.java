@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cicatriza.indicadores.R;
@@ -36,6 +38,7 @@ import java.util.List;
 public class ListFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private TextView countTotal;
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
     private DatabaseReference pacienteRef = firebaseRef.child("pacientes");
     private ValueEventListener valueEventListenerPacientes;
@@ -53,6 +56,8 @@ public class ListFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_list, container, false);
 
         recyclerView = view.findViewById(R.id.database_recyclerview);
+        countTotal = view.findViewById(R.id.textTotal);
+
 
         //Click nos Itens
         recyclerView.addOnItemTouchListener(
@@ -94,6 +99,10 @@ public class ListFragment extends Fragment {
                 }
 
                 adapter.notifyDataSetChanged();
+
+                countTotal.setText(Html.fromHtml("<b>Total: </b>" +
+                        String.valueOf(listaPacientes.size()), 1));
+
             }
 
             @Override

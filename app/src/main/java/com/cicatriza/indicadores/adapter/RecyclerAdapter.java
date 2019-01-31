@@ -40,6 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         Paciente paciente = listaPacientes.get(position);
 
         holder.idPaciente.setText("Paciente " + paciente.getId());
+
         if (paciente.getAdmissao().isEmpty()) {
             holder.dataAdmissao.setText(Html.fromHtml(
                     "<b>Admissão:</b> " + "<i>-</i>", 1));

@@ -93,7 +93,7 @@ public class AltaController {
                             altaUpdate.put(grandSon.getKey(), grandSon.getValue());
                         }
                         pacientesRef.child(idPaciente).child("admissao").child(child.getKey())
-                                .updateChildren(altaUpdate);;
+                                .updateChildren(altaUpdate);
 
                         Toast.makeText(context, "Paciente " + idPaciente + " recebeu alta.",
                                 Toast.LENGTH_LONG).show();

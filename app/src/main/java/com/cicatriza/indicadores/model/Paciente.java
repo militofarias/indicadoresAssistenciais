@@ -26,6 +26,7 @@ public class Paciente implements Serializable {
     public void salvar(String paciente) {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
         DatabaseReference pacienteRef = firebaseRef.child("pacientes");
+
         setId(paciente);
         pacienteRef.child(paciente).setValue(this);
     }
