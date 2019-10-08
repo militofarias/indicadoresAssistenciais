@@ -16,11 +16,11 @@ import com.cicatriza.indicadores.model.Paciente;
 import java.util.List;
 import java.util.Map;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapter.MyViewHolder> {
 
     private List<Paciente> listaPacientes;
 
-    public RecyclerAdapter(List<Paciente> lista) {
+    public RecyclerListAdapter(List<Paciente> lista) {
         this.listaPacientes = lista;
     }
 

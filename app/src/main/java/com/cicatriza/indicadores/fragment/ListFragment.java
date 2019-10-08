@@ -2,33 +2,28 @@ package com.cicatriza.indicadores.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cicatriza.indicadores.R;
-import com.cicatriza.indicadores.adapter.RecyclerAdapter;
+import com.cicatriza.indicadores.adapter.RecyclerListAdapter;
 import com.cicatriza.indicadores.helper.ConfiguracaoFirebase;
 import com.cicatriza.indicadores.helper.RecyclerItemClickListener;
 import com.cicatriza.indicadores.model.Paciente;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -43,7 +38,7 @@ public class ListFragment extends Fragment {
     private DatabaseReference pacienteRef = firebaseRef.child("pacientes");
     private ValueEventListener valueEventListenerPacientes;
 
-    private RecyclerAdapter adapter;
+    private RecyclerListAdapter adapter;
     final private List<Paciente> listaPacientes = new ArrayList<>();
 
     public ListFragment() {
@@ -56,7 +51,7 @@ public class ListFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_list, container, false);
 
         recyclerView = view.findViewById(R.id.database_recyclerview);
-        countTotal = view.findViewById(R.id.textTotal);
+        countTotal = view.findViewById(R.id.textEntradasSaidasLbl);
 
 
         //Click nos Itens
@@ -65,12 +60,19 @@ public class ListFragment extends Fragment {
                         getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(getContext(), "Click no Paciente", Toast.LENGTH_SHORT).show();
+                        Paciente paciente = listaPacientes.get(position);
+                        Toast.makeText(getContext(), "Click no Paciente " + paciente.getId(), Toast.LENGTH_SHORT).show();
+//                        PacienteDetalhesFragment detalhesFragment = new PacienteDetalhesFragment();
+//                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        transaction.replace(R.id.ListFrameLayout, detalhesFragment);
+//                        transaction.addToBackStack(null);
+//                        transaction.commit();
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        Toast.makeText(getContext(), "Click LONGO no Paciente", Toast.LENGTH_SHORT).show();
+                        Paciente paciente = listaPacientes.get(position);
+                        Toast.makeText(getContext(), "Click LONGO no Paciente " + paciente.getId(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -112,7 +114,7 @@ public class ListFragment extends Fragment {
         });
 
         //Configurar Adapter
-        adapter = new RecyclerAdapter(listaPacientes);
+        adapter = new RecyclerListAdapter(listaPacientes);
 
         //Configurar recyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
